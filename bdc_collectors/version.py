@@ -8,4 +8,4 @@
 
 """Version information for BDC-Collectors."""
 
-__version__ = '0.8.0'
+__version__ = '0.6.2'

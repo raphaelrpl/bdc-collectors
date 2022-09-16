@@ -11,11 +11,12 @@ Changes
 =======
 
 
-Version 0.6.1 (2022-09-16)
+Version 0.6.2 (2022-09-16)
 --------------------------
 
 - Improve docs usage/setup
 - Fix readthedocs build
+- Remove ``BDC-Catalog`` dependency
 
 
 Version 0.6.1 (2022-04-04)
