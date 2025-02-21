@@ -1,6 +1,6 @@
 #
 # This file is part of Brazil Data Cube BDC-Collectors.
-# Copyright (C) 2022 INPE.
+# Copyright (C) 2023 INPE.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
 #
+ARG GIT_COMMIT
+ARG BASE_IMAGE=python:3.11-bullseye
+FROM ${BASE_IMAGE}
 
-"""Version information for BDC-Collectors."""
+ARG GIT_COMMIT
 
-__version__ = '1.0.3'
+LABEL "org.repo.maintainer"="Brazil Data Cube <brazildatacube@inpe.br>"
+LABEL "org.repo.title"="Docker image for BDC Collectors"
+LABEL "org.repo.description"="Docker image to collect data from multiple providers."
+LABEL "org.repo.git_commit"="${GIT_COMMIT}"
+
+# Build arguments
+ARG APP_INSTALL_PATH="/opt/bdc-collectors"
+
+ADD . ${APP_INSTALL_PATH}
+
+WORKDIR ${APP_INSTALL_PATH}
+
+RUN python3 -m pip install pip --upgrade setuptools wheel --no-cache && \
+    python3 -m pip install --no-cache -e .[docs,tests,raster]
+
+CMD ["bdc-collector"]
